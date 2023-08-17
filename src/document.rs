@@ -532,6 +532,16 @@ impl Document {
 }
 
 impl Document {
+    pub fn iter_values_for_field<'a>(
+        &'a self,
+        field: &str,
+    ) -> impl Iterator<Item = &'a Value> + 'a {
+        self.field_values
+            .get(field)
+            .into_iter()
+            .flat_map(|values| values.iter())
+    }
+
     fn add_value<T>(&mut self, field_name: String, value: T)
     where
         Value: From<T>,
@@ -593,15 +603,5 @@ impl Document {
         }
 
         Ok(())
-    }
-
-    fn iter_values_for_field<'a>(
-        &'a self,
-        field: &str,
-    ) -> impl Iterator<Item = &'a Value> + 'a {
-        self.field_values
-            .get(field)
-            .into_iter()
-            .flat_map(|values| values.iter())
     }
 }

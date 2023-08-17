@@ -677,6 +677,32 @@ class TestJsonField:
         # assert len(result.hits) == 1
 
 
+class TestSnippets(object):
+    def test_document_snippet(self, dir_index):
+        index_dir, _ = dir_index
+        doc_schema = schema()
+        index = Index(doc_schema, str(index_dir))
+        query = index.parse_query("sea whale", ["title", "body"])
+        searcher = index.searcher()
+        result = searcher.search(query)
+        assert len(result.hits) == 1
+
+        snippet_generator = SnippetGenerator.create(
+            searcher, query, doc_schema, "title"
+        )
+
+        for score, doc_address in result.hits:
+            doc = searcher.doc(doc_address)
+            snippet = snippet_generator.snippet_from_doc(doc)
+            highlights = snippet.highlighted()
+            assert len(highlights) == 1
+            first = highlights[0]
+            assert first.start == 20
+            assert first.end == 23
+            html_snippet = snippet.to_html()
+            assert html_snippet == "The Old Man and the <b>Sea</b>"
+
+
 @pytest.mark.parametrize("bytes_kwarg", [True, False])
 @pytest.mark.parametrize(
     "bytes_payload",
