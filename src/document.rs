@@ -499,6 +499,11 @@ impl Document {
             .collect::<PyResult<Vec<_>>>()
     }
 
+    fn keys(&self) -> PyResult<Vec<String>> {
+        let keys: Vec<String> = self.field_values.keys().cloned().collect();
+        Ok(keys)
+    }
+
     fn __getitem__(&self, field_name: &str) -> PyResult<Vec<PyObject>> {
         Python::with_gil(|py| -> PyResult<Vec<PyObject>> {
             self.get_all(py, field_name)

@@ -67,6 +67,10 @@ impl SnippetGenerator {
         });
     }
 
+    pub fn set_max_num_chars(&mut self, max_num_chars: usize) {
+        self.inner.set_max_num_chars(max_num_chars);
+    }
+
     pub fn snippet_from_doc(&self, doc: &crate::Document) -> crate::Snippet {
         let text: String = doc
             .iter_values_for_field(&self.field_name)

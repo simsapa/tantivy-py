@@ -16,7 +16,7 @@ use tantivy::{
     schema::{NamedFieldDocument, Term, Value},
     tokenizer::{
         Language, LowerCaser, RemoveLongFilter, SimpleTokenizer, Stemmer,
-        TextAnalyzer,
+        TextAnalyzer, AsciiFoldingFilter
     },
 };
 
@@ -334,7 +334,7 @@ impl Index {
 
     /// The schema of the current index.
     #[getter]
-    fn schema(&self) -> Schema {
+    pub fn schema(&self) -> Schema {
         let schema = self.index.schema();
         Schema { inner: schema }
     }
@@ -399,30 +399,32 @@ impl Index {
 impl Index {
     fn register_custom_text_analyzers(index: &tv::Index) {
         let analyzers = [
-            ("ar_stem", Language::Arabic),
-            ("da_stem", Language::Danish),
-            ("nl_stem", Language::Dutch),
-            ("fi_stem", Language::Finnish),
-            ("fr_stem", Language::French),
-            ("de_stem", Language::German),
-            ("el_stem", Language::Greek),
-            ("hu_stem", Language::Hungarian),
-            ("it_stem", Language::Italian),
-            ("no_stem", Language::Norwegian),
-            ("pt_stem", Language::Portuguese),
-            ("ro_stem", Language::Romanian),
-            ("ru_stem", Language::Russian),
-            ("es_stem", Language::Spanish),
-            ("sv_stem", Language::Swedish),
-            ("ta_stem", Language::Tamil),
-            ("tr_stem", Language::Turkish),
+            ("en_stem_fold", Language::English),
+            ("ar_stem_fold", Language::Arabic),
+            ("da_stem_fold", Language::Danish),
+            ("nl_stem_fold", Language::Dutch),
+            ("fi_stem_fold", Language::Finnish),
+            ("fr_stem_fold", Language::French),
+            ("de_stem_fold", Language::German),
+            ("el_stem_fold", Language::Greek),
+            ("hu_stem_fold", Language::Hungarian),
+            ("it_stem_fold", Language::Italian),
+            ("no_stem_fold", Language::Norwegian),
+            ("pt_stem_fold", Language::Portuguese),
+            ("ro_stem_fold", Language::Romanian),
+            ("ru_stem_fold", Language::Russian),
+            ("es_stem_fold", Language::Spanish),
+            ("sv_stem_fold", Language::Swedish),
+            ("ta_stem_fold", Language::Tamil),
+            ("tr_stem_fold", Language::Turkish),
         ];
 
         for (name, lang) in &analyzers {
             let an = TextAnalyzer::builder(SimpleTokenizer::default())
-                .filter(RemoveLongFilter::limit(40))
+                .filter(RemoveLongFilter::limit(50))
                 .filter(LowerCaser)
                 .filter(Stemmer::new(*lang))
+                .filter(AsciiFoldingFilter)
                 .build();
             index.tokenizers().register(name, an);
         }
