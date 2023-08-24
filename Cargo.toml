@@ -15,7 +15,7 @@ pyo3-build-config = "0.19.1"
 
 [dependencies]
 chrono = "0.4.23"
-tantivy = { git = "https://github.com/quickwit-oss/tantivy.git", rev = "756156beaf4587eb410a0f671ee1fbc84db37c8d" }
+tantivy = { git = "https://github.com/simsapa/tantivy.git", branch = "simsapa" }
 itertools = "0.10.5"
 futures = "0.3.26"
 serde_json = "1.0.91"

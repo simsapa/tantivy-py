@@ -410,6 +410,7 @@ impl Index {
             ("hu_stem_fold", Language::Hungarian),
             ("it_stem_fold", Language::Italian),
             ("no_stem_fold", Language::Norwegian),
+            ("pli_stem_fold", Language::Pali),
             ("pt_stem_fold", Language::Portuguese),
             ("ro_stem_fold", Language::Romanian),
             ("ru_stem_fold", Language::Russian),

@@ -681,7 +681,7 @@ checksum = "b15813163c1d831bf4a13c3610c05c0d03b39feb07f7e09fa234dac9b15aaf39"
 [[package]]
 name = "ownedbytes"
 version = "0.5.0"
-source = "git+https://github.com/quickwit-oss/tantivy.git?rev=756156beaf4587eb410a0f671ee1fbc84db37c8d#756156beaf4587eb410a0f671ee1fbc84db37c8d"
+source = "git+https://github.com/simsapa/tantivy.git?branch=simsapa#fa758cfc494d0332d413616dd9a1a6dfc1f02be7"
 dependencies = [
  "stable_deref_trait",
 ]
@@ -883,9 +883,8 @@ checksum = "e5ea92a5b6195c6ef2a0295ea818b312502c6fc94dde986c5553242e18fd4ce2"
 
 [[package]]
 name = "rust-stemmers"
-version = "1.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e46a2036019fdb888131db7a4c847a1063a7493f971ed94ea82c67eada63ca54"
+version = "1.2.0-pre.1"
+source = "git+https://github.com/simsapa/rust-stemmers.git?branch=simsapa#e0cd79468a9874550bcf978b413f471961635a17"
 dependencies = [
  "serde",
  "serde_derive",
@@ -1036,13 +1035,13 @@ dependencies = [
  "pyo3",
  "pyo3-build-config",
  "serde_json",
- "tantivy 0.20.2",
+ "tantivy 0.20.2-pre.1 (git+https://github.com/simsapa/tantivy.git?branch=simsapa)",
 ]
 
 [[package]]
 name = "tantivy"
-version = "0.20.2"
-source = "git+https://github.com/quickwit-oss/tantivy.git?rev=756156beaf4587eb410a0f671ee1fbc84db37c8d#756156beaf4587eb410a0f671ee1fbc84db37c8d"
+version = "0.20.2-pre.1"
+source = "git+https://github.com/simsapa/tantivy.git?branch=simsapa#fa758cfc494d0332d413616dd9a1a6dfc1f02be7"
 dependencies = [
  "aho-corasick",
  "arc-swap",
@@ -1093,7 +1092,7 @@ dependencies = [
 [[package]]
 name = "tantivy-bitpacker"
 version = "0.4.0"
-source = "git+https://github.com/quickwit-oss/tantivy.git?rev=756156beaf4587eb410a0f671ee1fbc84db37c8d#756156beaf4587eb410a0f671ee1fbc84db37c8d"
+source = "git+https://github.com/simsapa/tantivy.git?branch=simsapa#fa758cfc494d0332d413616dd9a1a6dfc1f02be7"
 dependencies = [
  "bitpacking",
 ]
@@ -1101,7 +1100,7 @@ dependencies = [
 [[package]]
 name = "tantivy-columnar"
 version = "0.1.0"
-source = "git+https://github.com/quickwit-oss/tantivy.git?rev=756156beaf4587eb410a0f671ee1fbc84db37c8d#756156beaf4587eb410a0f671ee1fbc84db37c8d"
+source = "git+https://github.com/simsapa/tantivy.git?branch=simsapa#fa758cfc494d0332d413616dd9a1a6dfc1f02be7"
 dependencies = [
  "fastdivide",
  "fnv",
@@ -1116,7 +1115,7 @@ dependencies = [
 [[package]]
 name = "tantivy-common"
 version = "0.5.0"
-source = "git+https://github.com/quickwit-oss/tantivy.git?rev=756156beaf4587eb410a0f671ee1fbc84db37c8d#756156beaf4587eb410a0f671ee1fbc84db37c8d"
+source = "git+https://github.com/simsapa/tantivy.git?branch=simsapa#fa758cfc494d0332d413616dd9a1a6dfc1f02be7"
 dependencies = [
  "async-trait",
  "byteorder",
@@ -1139,7 +1138,7 @@ dependencies = [
 [[package]]
 name = "tantivy-query-grammar"
 version = "0.20.0"
-source = "git+https://github.com/quickwit-oss/tantivy.git?rev=756156beaf4587eb410a0f671ee1fbc84db37c8d#756156beaf4587eb410a0f671ee1fbc84db37c8d"
+source = "git+https://github.com/simsapa/tantivy.git?branch=simsapa#fa758cfc494d0332d413616dd9a1a6dfc1f02be7"
 dependencies = [
  "nom",
 ]
@@ -1147,7 +1146,7 @@ dependencies = [
 [[package]]
 name = "tantivy-sstable"
 version = "0.1.0"
-source = "git+https://github.com/quickwit-oss/tantivy.git?rev=756156beaf4587eb410a0f671ee1fbc84db37c8d#756156beaf4587eb410a0f671ee1fbc84db37c8d"
+source = "git+https://github.com/simsapa/tantivy.git?branch=simsapa#fa758cfc494d0332d413616dd9a1a6dfc1f02be7"
 dependencies = [
  "tantivy-common",
  "tantivy-fst",
@@ -1157,7 +1156,7 @@ dependencies = [
 [[package]]
 name = "tantivy-stacker"
 version = "0.1.0"
-source = "git+https://github.com/quickwit-oss/tantivy.git?rev=756156beaf4587eb410a0f671ee1fbc84db37c8d#756156beaf4587eb410a0f671ee1fbc84db37c8d"
+source = "git+https://github.com/simsapa/tantivy.git?branch=simsapa#fa758cfc494d0332d413616dd9a1a6dfc1f02be7"
 dependencies = [
  "murmurhash32",
  "tantivy-common",
@@ -1166,7 +1165,7 @@ dependencies = [
 [[package]]
 name = "tantivy-tokenizer-api"
 version = "0.1.0"
-source = "git+https://github.com/quickwit-oss/tantivy.git?rev=756156beaf4587eb410a0f671ee1fbc84db37c8d#756156beaf4587eb410a0f671ee1fbc84db37c8d"
+source = "git+https://github.com/simsapa/tantivy.git?branch=simsapa#fa758cfc494d0332d413616dd9a1a6dfc1f02be7"
 dependencies = [
  "serde",
 ]
