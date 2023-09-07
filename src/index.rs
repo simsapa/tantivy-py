@@ -427,7 +427,19 @@ impl Index {
                 .filter(Stemmer::new(*lang))
                 .filter(AsciiFoldingFilter)
                 .build();
-            index.tokenizers().register(name, an);
+
+            index.tokenizers().register(name, an.clone());
+
+            index.fast_field_tokenizer().register(name, an);
         }
+
+        let simple_fold = TextAnalyzer::builder(SimpleTokenizer::default())
+            .filter(LowerCaser)
+            .filter(AsciiFoldingFilter)
+            .build();
+
+        index.tokenizers().register("simple_fold", simple_fold.clone());
+
+        index.fast_field_tokenizer().register("simple_fold", simple_fold)
     }
 }

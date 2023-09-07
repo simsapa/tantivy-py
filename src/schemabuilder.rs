@@ -63,6 +63,7 @@ impl SchemaBuilder {
     #[pyo3(signature = (
         name,
         stored = false,
+        fast = false,
         tokenizer_name = TOKENIZER,
         index_option = RECORD
     ))]
@@ -70,12 +71,14 @@ impl SchemaBuilder {
         &mut self,
         name: &str,
         stored: bool,
+        fast: bool,
         tokenizer_name: &str,
         index_option: &str,
     ) -> PyResult<Self> {
         let builder = &mut self.builder;
         let options = SchemaBuilder::build_text_option(
             stored,
+            fast,
             tokenizer_name,
             index_option,
         )?;
@@ -319,6 +322,7 @@ impl SchemaBuilder {
         let builder = &mut self.builder;
         let options = SchemaBuilder::build_text_option(
             stored,
+            false,
             tokenizer_name,
             index_option,
         )?;
@@ -403,6 +407,7 @@ impl SchemaBuilder {
 
     fn build_text_option(
         stored: bool,
+        fast: bool,
         tokenizer_name: &str,
         index_option: &str,
     ) -> PyResult<schema::TextOptions> {
@@ -419,14 +424,10 @@ impl SchemaBuilder {
             .set_tokenizer(tokenizer_name)
             .set_index_option(index_option);
 
-        let options =
-            schema::TextOptions::default().set_indexing_options(indexing);
-        let options = if stored {
-            options.set_stored()
-        } else {
-            options
-        };
+        let opts = schema::TextOptions::default().set_indexing_options(indexing);
+        let opts = if stored { opts.set_stored() } else { opts };
+        let opts = if fast { opts.set_fast(Some(tokenizer_name)) } else { opts };
 
-        Ok(options)
+        Ok(opts)
     }
 }
