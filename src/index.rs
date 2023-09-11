@@ -1,6 +1,7 @@
 #![allow(clippy::new_ret_no_self)]
 
 use pyo3::{exceptions, prelude::*, types::PyAny};
+use tv::query::{RegexQuery, FuzzyTermQuery};
 
 use crate::{
     document::{extract_value, Document},
@@ -394,6 +395,71 @@ impl Index {
 
         Ok(Query { inner: query })
     }
+
+    #[pyo3(signature = (query_text, field_name))]
+    pub fn parse_regex_query(
+        &self,
+        query_text: &str,
+        field_name: &str,
+    ) -> PyResult<Query> {
+        let schema = self.index.schema();
+
+        let search_field;
+
+        if let Ok(field) = schema.get_field(field_name) {
+            let field_entry = schema.get_field_entry(field);
+            if !field_entry.is_indexed() {
+                return Err(exceptions::PyValueError::new_err(
+                    format!(
+                    "Field `{field_name}` is not set as indexed in the schema."
+                ),
+                ));
+            }
+            search_field = field;
+        } else {
+            return Err(exceptions::PyValueError::new_err(format!(
+                "Field `{field_name}` is not defined in the schema."
+            )));
+        }
+
+        let query = RegexQuery::from_pattern(query_text, search_field).map_err(to_pyerr)?;
+
+        Ok(Query { inner: Box::new(query) })
+    }
+
+    #[pyo3(signature = (query_text, field_name, fuzzy_distance = 2))]
+    pub fn parse_fuzzy_query(
+        &self,
+        query_text: &str,
+        field_name: &str,
+        fuzzy_distance: u8,
+    ) -> PyResult<Query> {
+        let schema = self.index.schema();
+
+        let search_field;
+
+        if let Ok(field) = schema.get_field(field_name) {
+            let field_entry = schema.get_field_entry(field);
+            if !field_entry.is_indexed() {
+                return Err(exceptions::PyValueError::new_err(
+                    format!(
+                    "Field `{field_name}` is not set as indexed in the schema."
+                ),
+                ));
+            }
+            search_field = field;
+        } else {
+            return Err(exceptions::PyValueError::new_err(format!(
+                "Field `{field_name}` is not defined in the schema."
+            )));
+        }
+
+        let term = Term::from_field_text(search_field, query_text);
+        let query = FuzzyTermQuery::new(term, fuzzy_distance, true);
+
+        Ok(Query { inner: Box::new(query) })
+    }
+
 }
 
 impl Index {
