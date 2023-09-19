@@ -1036,7 +1036,7 @@ dependencies = [
 
 [[package]]
 name = "tantivy"
-version = "0.20.2-pre.1"
+version = "0.20.2-pre.4"
 dependencies = [
  "chrono",
  "futures",
