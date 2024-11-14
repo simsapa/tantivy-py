@@ -1,6 +1,6 @@
 [package]
 name = "tantivy"
-version = "0.20.2-pre.4"
+version = "0.20.2-pre.5"
 readme = "README.md"
 authors = ["Damir Jelić <poljar@termina.org.uk>"]
 edition = "2018"
@@ -11,17 +11,22 @@ name = "tantivy"
 crate-type = ["cdylib"]
 
 [build-dependencies]
-pyo3-build-config = "0.19.1"
+pyo3-build-config = "0.22.6"
 
 [dependencies]
-chrono = "0.4.23"
+chrono = "0.4.38"
 tantivy = { git = "https://github.com/simsapa/tantivy.git", branch = "simsapa" }
-itertools = "0.10.5"
-futures = "0.3.26"
-pythonize = "0.19.0"
+itertools = "0.13.0"
+futures = "0.3.31"
+pythonize = "0.21.0"
 serde = "1.0"
-serde_json = "1.0.91"
+serde_json = "1.0.132"
+
+[patch.crates-io]
+# ZSTD_c_experiencelParam6 issue not found
+# https://github.com/gyscos/zstd-rs/issues/270
+zstd-sys = { git = "https://github.com/gyscos/zstd-rs.git", rev = "1779b385b42b08f958b767a37878dfa6a0b4f6a4" }
 
 [dependencies.pyo3]
-version = "0.19.1"
+version = "0.21.0"
 features = ["chrono", "extension-module"]
